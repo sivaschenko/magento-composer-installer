@@ -114,11 +114,11 @@ class DeployManager
         $result = 100;
         $maxPriority = max(array_merge($this->sortPriority, [100, 101]));
 
-        if (isset($this->sortPriority[$package->getPackageName()])) {
-            $result = $this->sortPriority[$package->getPackageName()];
-        } elseif (isset($this->highPriority[$package->getPackageName()])) {
+        if (isset($this->highPriority[$package->getPackageName()])) {
             $packagePriority = $this->highPriority[$package->getPackageName()];
             $result = intval($maxPriority) + intval($packagePriority);
+        } elseif (isset($this->sortPriority[$package->getPackageName()])) {
+            $result = $this->sortPriority[$package->getPackageName()];
         } elseif ($package->getDeployStrategy() instanceof Copy) {
             $result = 101;
         }
